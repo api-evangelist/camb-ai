@@ -1,0 +1,152 @@
+asyncapi: 2.6.0
+info:
+  title: Camb.AI Realtime WebSocket API
+  version: '1.0'
+  description: >-
+    Camb.AI exposes public WebSocket channels for real-time voice AI in addition
+    to its REST API. Three streaming surfaces are documented: live text-to-speech
+    (stream text in, receive synthesized audio and optional word-level timestamps),
+    live transcription (stream raw audio in, receive cumulative interim transcripts
+    and typed events), and realtime speech-to-speech translation (stream audio in,
+    receive transcripts, translated text, and translated audio). Connections are
+    persistent and bidirectional over secure WebSocket (wss). Channels are
+    authenticated with the same x-api-key credential used by the REST API. The
+    exact WebSocket host and channel paths should be confirmed against the current
+    documentation at https://docs.camb.ai; they are modeled here from the public
+    endpoint listing.
+servers:
+  production:
+    url: client.camb.ai/apis
+    protocol: wss
+    description: Camb.AI production WebSocket. Secure WebSocket (wss) only.
+    security:
+      - apiKey: []
+defaultContentType: application/json
+channels:
+  live-tts:
+    description: >-
+      Real-time streaming text-to-speech. The client streams text; the server
+      returns synthesized audio chunks and optional word-level timestamps.
+    publish:
+      operationId: sendTtsText
+      summary: Send text to synthesize.
+      message:
+        $ref: '#/components/messages/TtsInput'
+    subscribe:
+      operationId: receiveTtsAudio
+      summary: Receive synthesized audio and timing events.
+      message:
+        $ref: '#/components/messages/TtsOutput'
+  listen:
+    description: >-
+      Live transcription. The client streams raw audio; the server returns
+      cumulative interim transcripts, word-level timing, and typed events.
+    publish:
+      operationId: sendAudioForTranscription
+      summary: Stream raw audio frames.
+      message:
+        $ref: '#/components/messages/AudioInput'
+    subscribe:
+      operationId: receiveTranscript
+      summary: Receive interim and final transcripts and events.
+      message:
+        $ref: '#/components/messages/TranscriptEvent'
+  realtime:
+    description: >-
+      Realtime speech-to-speech translation. The client streams audio in one
+      language; the server returns transcripts, translated text, and translated
+      synthesized audio.
+    publish:
+      operationId: sendAudioForTranslation
+      summary: Stream source-language audio frames.
+      message:
+        $ref: '#/components/messages/AudioInput'
+    subscribe:
+      operationId: receiveTranslatedAudio
+      summary: Receive transcripts, translated text, and translated audio.
+      message:
+        $ref: '#/components/messages/TranslationEvent'
+components:
+  securitySchemes:
+    apiKey:
+      type: httpApiKey
+      in: header
+      name: x-api-key
+      description: The same API key used for the REST API.
+  messages:
+    TtsInput:
+      name: ttsInput
+      title: TTS text input
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          text:
+            type: string
+            description: A chunk of text to synthesize.
+          voice_id:
+            type: integer
+          language:
+            type: string
+          flush:
+            type: boolean
+            description: Signal that buffered text should be synthesized now.
+    TtsOutput:
+      name: ttsOutput
+      title: TTS audio output
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            description: Event type, for example audio or timestamps.
+          audio:
+            type: string
+            description: Base64-encoded audio chunk.
+          timestamps:
+            type: array
+            description: Optional word-level timing information.
+            items:
+              type: object
+    AudioInput:
+      name: audioInput
+      title: Raw audio input
+      contentType: application/octet-stream
+      payload:
+        type: string
+        format: binary
+        description: A raw audio frame (for example PCM) streamed to the server.
+    TranscriptEvent:
+      name: transcriptEvent
+      title: Transcript event
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            description: Event type, for example interim, final, or error.
+          transcript:
+            type: string
+          words:
+            type: array
+            items:
+              type: object
+    TranslationEvent:
+      name: translationEvent
+      title: Translation event
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            description: Event type, for example transcript, translation, or audio.
+          transcript:
+            type: string
+          translated_text:
+            type: string
+          audio:
+            type: string
+            description: Base64-encoded translated audio chunk.

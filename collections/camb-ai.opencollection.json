@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Camb.AI API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "x-api-key",
+        "value": "{{apiKey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Text-to-Speech", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Stream text-to-speech", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/tts-stream",
+            "body": { "type": "json", "data": "{\n  \"text\": \"Hello from Camb.AI\",\n  \"language\": \"en-us\",\n  \"voice_id\": 147320,\n  \"speech_model\": \"mars-8.1-flash-beta\"\n}" }
+          },
+          "docs": "Synthesize speech and return a binary audio stream."
+        },
+        {
+          "info": { "name": "Create TTS task (deprecated)", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/tts",
+            "body": { "type": "json", "data": "{\n  \"text\": \"Hello from Camb.AI\",\n  \"voice_id\": 147320,\n  \"language\": \"en-us\"\n}" }
+          },
+          "docs": "Deprecated. Use POST /tts-stream for new integrations."
+        },
+        {
+          "info": { "name": "Poll TTS task", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/tts/:task_id",
+            "params": [
+              { "name": "task_id", "value": "", "type": "path", "description": "The TTS task id." }
+            ]
+          },
+          "docs": "Returns TTS task status and, when complete, the run_id."
+        },
+        {
+          "info": { "name": "Download TTS audio", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/tts-result/:run_id",
+            "params": [
+              { "name": "run_id", "value": "", "type": "path", "description": "The run id from the polled TTS task." }
+            ]
+          },
+          "docs": "Downloads the generated audio for a completed TTS run."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Dubbing", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create dubbing task", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/dub",
+            "body": { "type": "json", "data": "{\n  \"video_url\": \"https://example.com/clip.mp4\",\n  \"source_language\": \"en-us\",\n  \"target_languages\": [\"es-es\", \"fr-fr\"]\n}" }
+          },
+          "docs": "Start an end-to-end dubbing task for a media URL."
+        },
+        {
+          "info": { "name": "Poll dubbing task", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/dub/:task_id",
+            "params": [
+              { "name": "task_id", "value": "", "type": "path", "description": "The dubbing task id." }
+            ]
+          },
+          "docs": "Returns dubbing task status and, when complete, the dubbed outputs."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Translation", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create translation task", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/translate",
+            "body": { "type": "json", "data": "{\n  \"texts\": [\"Hello world\"],\n  \"source_language\": \"en-us\",\n  \"target_language\": \"es-es\"\n}" }
+          },
+          "docs": "Translate an array of texts with the BOLI model."
+        },
+        {
+          "info": { "name": "Poll translation task", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/translate/:task_id",
+            "params": [
+              { "name": "task_id", "value": "", "type": "path", "description": "The translation task id." }
+            ]
+          },
+          "docs": "Returns translation task status and, when complete, the translated texts."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Transcription", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create transcription task", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/transcribe",
+            "body": { "type": "formdata", "data": "language=en-us&media_url=https://example.com/audio.mp3" }
+          },
+          "docs": "Transcribe speech from a media file or media URL."
+        },
+        {
+          "info": { "name": "Poll transcription task", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/transcribe/:task_id",
+            "params": [
+              { "name": "task_id", "value": "", "type": "path", "description": "The transcription task id." }
+            ]
+          },
+          "docs": "Returns transcription task status and, when complete, the transcript."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Voices", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List voices", "type": "http" },
+          "http": { "method": "GET", "url": "https://client.camb.ai/apis/list-voices" },
+          "docs": "List public, shared, and custom voices."
+        },
+        {
+          "info": { "name": "Create custom voice", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/create-custom-voice",
+            "body": { "type": "formdata", "data": "voice_name=My Voice" }
+          },
+          "docs": "Clone a custom voice from a reference audio sample."
+        },
+        {
+          "info": { "name": "Design voice from text", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/text-to-voice",
+            "body": { "type": "json", "data": "{\n  \"voice_description\": \"A warm, calm female narrator\"\n}" }
+          },
+          "docs": "Generate candidate voices from a natural-language description."
+        },
+        {
+          "info": { "name": "Delete custom voice", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://client.camb.ai/apis/delete-voice/:voice_id",
+            "params": [
+              { "name": "voice_id", "value": "", "type": "path", "description": "The custom voice id." }
+            ]
+          },
+          "docs": "Permanently remove a custom voice."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Languages", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List source languages", "type": "http" },
+          "http": { "method": "GET", "url": "https://client.camb.ai/apis/source-languages" },
+          "docs": "List supported source languages."
+        },
+        {
+          "info": { "name": "List target languages", "type": "http" },
+          "http": { "method": "GET", "url": "https://client.camb.ai/apis/target-languages" },
+          "docs": "List supported target languages."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

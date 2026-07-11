@@ -1,0 +1,110 @@
+aid: camb-ai
+name: Camb.AI
+review:
+  question: Does Camb.AI expose a documented public WebSocket API?
+  answer: true
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: true
+  asyncapiScopeNote: |
+    Camb.AI does expose documented public WebSocket surfaces, so an AsyncAPI 2.6
+    document was authored at asyncapi/camb-ai-asyncapi.yml. Three realtime
+    channels are documented: live text-to-speech (stream text in, receive
+    synthesized audio plus optional word-level timestamps), live transcription
+    (stream raw audio in, receive cumulative interim transcripts and typed
+    events), and realtime speech-to-speech translation (stream audio in, receive
+    transcripts, translated text, and translated audio). The exact WebSocket host
+    and channel paths are modeled from the public endpoint listing and should be
+    confirmed against docs.camb.ai during reconciliation; the transport is secure
+    WebSocket (wss) authenticated with the same x-api-key credential as the REST
+    API.
+findings:
+  summary: |
+    Camb.AI publishes a documented public API for generative voice AI. The REST
+    API is served from https://client.camb.ai/apis and authenticated with an
+    x-api-key header. Most operations are asynchronous: a POST starts a task and
+    returns a task_id, the task is polled with a GET until status is SUCCESS, and
+    the result (audio, transcript, or translation) is then retrieved. Product
+    areas include text-to-speech (MARS models, including a streaming
+    POST /tts-stream that returns binary audio), end-to-end dubbing (POST /dub),
+    translation (BOLI model, POST /translate), voice discovery and cloning
+    (GET /list-voices, POST /create-custom-voice, POST /text-to-voice), and
+    transcription (POST /transcribe). Unlike many providers, Camb.AI DOES document
+    public WebSocket channels for realtime streaming - live TTS, live
+    transcription (listen), and realtime speech-to-speech translation - in
+    addition to the REST surface, so the WebSocket question is answered true.
+  accessModel: |
+    Commercial SaaS with a published six-tier monthly/annual subscription (Free
+    through Expert). Access is credential-gated by an API key issued from the
+    Camb.AI account; consumption is metered in credits shared across all products.
+    Official SDKs are published (Python, TypeScript, Go, Java, PHP, Rust) at
+    github.com/Camb-ai. The models themselves (MARS, BOLI) are proprietary hosted
+    services, not self-hostable.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://client.camb.ai/apis
+      documented: true
+      note: Primary API. Asynchronous create-and-poll pattern; x-api-key header auth.
+    - protocol: WebSocket
+      scheme: wss
+      documented: true
+      note: Public realtime channels for live TTS, live transcription (listen), and realtime speech-to-speech translation. Host/paths modeled from the public endpoint listing; confirm against docs.camb.ai.
+  endpointsConfirmedRest:
+    - POST   https://client.camb.ai/apis/tts-stream
+    - POST   https://client.camb.ai/apis/tts
+    - GET    https://client.camb.ai/apis/tts/{task_id}
+    - GET    https://client.camb.ai/apis/tts-result/{run_id}
+    - POST   https://client.camb.ai/apis/dub
+    - GET    https://client.camb.ai/apis/dub/{task_id}
+    - POST   https://client.camb.ai/apis/translate
+    - GET    https://client.camb.ai/apis/translate/{task_id}
+    - POST   https://client.camb.ai/apis/transcribe
+    - GET    https://client.camb.ai/apis/transcribe/{task_id}
+    - GET    https://client.camb.ai/apis/list-voices
+    - POST   https://client.camb.ai/apis/create-custom-voice
+    - POST   https://client.camb.ai/apis/text-to-voice
+    - DELETE https://client.camb.ai/apis/delete-voice/{voice_id}
+    - GET    https://client.camb.ai/apis/source-languages
+    - GET    https://client.camb.ai/apis/target-languages
+  websocketChannels:
+    - live-tts (streaming text-to-speech; text in, audio + optional word timestamps out)
+    - listen (live transcription; raw audio in, cumulative interim transcripts + typed events out)
+    - realtime (realtime speech-to-speech translation; audio in, transcripts + translated text + translated audio out)
+sources:
+  - url: https://docs.camb.ai
+    type: Documentation
+    note: API overview - product areas, x-api-key auth, async task pattern.
+  - url: https://docs.camb.ai/llms.txt
+    type: Documentation
+    note: Machine-readable index listing REST endpoints and the live-tts, listen, and realtime WebSocket channels.
+  - url: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+    type: APIReference
+    note: Confirms base host https://client.camb.ai/apis, POST /tts-stream binary audio stream, x-api-key header.
+  - url: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
+    type: APIReference
+    note: POST /dub with video_url + source/target languages; GET /dub/{task_id} to poll.
+  - url: https://docs.camb.ai/api-reference/endpoint/create-translation
+    type: APIReference
+    note: POST /translate with texts + source/target languages; GET /translate/{task_id}.
+  - url: https://docs.camb.ai/api-reference/endpoint/create-transcription
+    type: APIReference
+    note: POST /transcribe (media_file or media_url + language); GET /transcribe/{task_id}.
+  - url: https://docs.camb.ai/api-reference/endpoint/list-voices
+    type: APIReference
+    note: GET /list-voices returns public, shared, and custom voices.
+  - url: https://www.camb.ai/pricing
+    type: Pricing
+    note: Six tiers (Free through Expert) on monthly credit allowances.
+  - url: https://github.com/Camb-ai
+    type: SourceCode
+    note: Official SDKs (Python, TypeScript, Go, Java, PHP, Rust).
+actions:
+  asyncapiPath: asyncapi/camb-ai-asyncapi.yml
+  apisYmlUpdated: true
+  reason: |
+    Camb.AI documents public WebSocket channels (live-tts, listen, realtime) in
+    addition to its REST API, so the WebSocket question is answered true and an
+    AsyncAPI 2.6 document was authored describing the three realtime channels.
+    Both the OpenAPI (REST) and AsyncAPI (WebSocket) artifacts are referenced from
+    the relevant APIs in apis.yml.

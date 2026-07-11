@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Camb.AI
+providerId: camb-ai
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- AI
+- Text to Speech
+- Dubbing
+- Translation
+- Transcription
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Camb.AI spend. Camb.AI is billed as a monthly (or discounted
+  annual) subscription that bundles a fixed allowance of credits, which are then
+  consumed across text-to-speech, dubbing, translation, audiobooks, and speech
+  recognition. Cost management is therefore a matter of choosing the right tier
+  for expected credit consumption and tracking how credits are spent per product
+  and per workload. Higher tiers raise the credit allowance and lift ceilings on
+  characters per generation, custom voices, media file size, teams, and live
+  streaming. Per-operation credit rates are metered by the API (for example the
+  X-Credits-Required header on streaming TTS) but are not reconciled to dollar
+  amounts here.
+notes: >-
+  Subscription prices and allowances were read from the public pricing page and
+  are subject to change - verify at https://www.camb.ai/pricing. The dominant
+  cost lever is matching the plan's monthly credit allowance to actual multi-
+  product usage.
+sources:
+- https://www.camb.ai/pricing
+- https://docs.camb.ai
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Camb.AI
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+focusColumns:
+  ServiceName: Camb.AI
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Camb.AI
+  PublisherName: Camb.AI
+  InvoiceIssuerName: Camb.AI
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: subscription
+  description: Monthly (or annual) subscription fee for the chosen plan tier.
+  unit: plan
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: credits
+  description: Credits consumed across all products (TTS, dubbing, translation, transcription); allocated monthly by plan.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - product
+  - workload
+- name: custom_voices
+  description: Stored custom (cloned or designed) voices, capped per plan.
+  unit: voices
+  aggregation: max
+  dimensions:
+  - account
+- name: live_streaming
+  description: Realtime live-streaming minutes, available on higher tiers.
+  unit: minutes
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track credit consumption per product (TTS, dubbing, translation, transcription) and per workload; use response credit headers to attribute cost.
+- name: Allocation
+  description: Map team members and concurrent teams to internal cost centers so subscription and credit spend can be attributed.
+- name: Optimization
+  description: Right-size the plan tier to expected monthly credit consumption; prefer annual billing for steady usage; keep TTS text within per-generation limits and reuse voices to avoid unnecessary custom-voice churn.
+- name: Accountability
+  description: Assign an owner for the Camb.AI subscription; review monthly credit burn against the plan allowance and upgrade or downgrade tiers accordingly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,76 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Camb.AI
+providerId: camb-ai
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- AI
+- Text to Speech
+- Dubbing
+- Translation
+- Rate Limiting
+- Quotas
+description: >-
+  Camb.AI does not publish fixed numeric per-minute request limits for the API.
+  Consumption is governed primarily by the monthly credit allowance of the
+  subscription plan - credits are spent across TTS, dubbing, translation, and
+  transcription - together with per-plan ceilings such as characters per
+  generation, custom voice count, video file size, concurrent teams, and live
+  streaming minutes and concurrent streams. Because most operations are
+  asynchronous (create a task, then poll), the documentation recommends polling
+  status endpoints at reasonable intervals (roughly every 5 to 15 seconds) rather
+  than tight loops.
+notes: >-
+  Numeric per-endpoint request-rate limits are not documented as of the review
+  date. Verify plan allowances at https://www.camb.ai/pricing and the polling
+  guidance at https://docs.camb.ai. Streaming TTS responses include an
+  X-Credits-Required header indicating the credit cost of the request.
+sources:
+- https://docs.camb.ai
+- https://www.camb.ai/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Monthly Credit Allowance
+  scope: account
+  metric: credits
+  limit: per plan (2000 Free to 1.8M Expert)
+  notes: Shared credit budget consumed across all products; the primary consumption control.
+- name: Characters per Generation
+  scope: request
+  metric: characters
+  limit: per plan (for example 3000 on Essentials/Pro; unlimited on higher tiers)
+  notes: Streaming TTS accepts 3 to 3000 characters per request on lower tiers.
+- name: Custom Voices
+  scope: account
+  metric: voices
+  limit: per plan (1 Free to 150+ Expert)
+  notes: Ceiling on the number of stored custom (cloned or designed) voices.
+- name: Video File Size
+  scope: request
+  metric: bytes
+  limit: per plan (for example up to 1 GB on Premier and above)
+  notes: Applies to dubbing and other media uploads.
+- name: Live Streaming
+  scope: account
+  metric: minutes
+  limit: per plan (for example 15 minutes, 1 concurrent stream on Expert)
+  notes: Realtime streaming minutes and concurrent stream count are plan-gated.
+- name: API Request Rate
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric per-minute request-rate limit is documented.
+policies:
+- name: Polling Interval
+  description: Poll asynchronous task status endpoints at reasonable intervals (about 5 to 15 seconds) until status is SUCCESS, rather than in a tight loop.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+- name: Credit Metering
+  description: Requests consume plan credits; streaming TTS surfaces the cost via the X-Credits-Required response header.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

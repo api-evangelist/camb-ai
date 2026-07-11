@@ -1,0 +1,156 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Camb.AI
+providerId: camb-ai
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- AI
+- Text to Speech
+- Dubbing
+- Translation
+- Transcription
+- Plans
+description: >-
+  Camb.AI sells access on a monthly subscription with a bundled allowance of
+  credits that are consumed across text-to-speech, dubbing, translation,
+  audiobooks, and speech recognition. Six published tiers run from a free plan up
+  to an Expert plan, each raising the monthly credit allowance and unlocking more
+  custom voices, larger media file limits, more team members and concurrent
+  teams, analytics, and live-streaming minutes. Annual billing is discounted
+  versus monthly. Credit costs per operation are metered by the API and surfaced
+  on responses (for example the X-Credits-Required header on streaming TTS); exact
+  per-operation credit rates are not reconciled here.
+notes: >-
+  Prices and allowances below were read from the public pricing page and are
+  subject to change - reconcile against https://www.camb.ai/pricing. Credits are a
+  shared currency spent across all products, so effective cost depends on the mix
+  of TTS characters, dubbing minutes, translation volume, and transcription used.
+sources:
+- https://www.camb.ai/pricing
+- https://docs.camb.ai
+plans:
+- id: camb-ai-free
+  name: Free
+  type: free
+  description: >-
+    Entry tier for evaluation, with basic access to text-to-speech, translation,
+    and speech tools.
+  entries:
+  - label: Monthly Credits
+    name: free_credits
+    type: usage
+    metric: credits
+    limit: 2000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 per month
+    userMultiplied: false
+  elements:
+  - name: 1 Custom Voice
+  - name: 1 Team Member
+  - name: No Analytics
+- id: camb-ai-essentials
+  name: Essentials
+  type: paid
+  description: Expanded per-generation character limits and more custom voices for light usage.
+  entries:
+  - label: Monthly Credits
+    name: essentials_credits
+    type: usage
+    metric: credits
+    limit: 10000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $5 per month (or $55 per year)
+    userMultiplied: false
+  elements:
+  - name: 3000 Characters per Generation
+  - name: 2 Custom Voices
+  - name: 2 Team Members
+- id: camb-ai-pro
+  name: Pro
+  type: paid
+  description: Most popular tier, adding enhanced dubbing minutes and more custom voices.
+  entries:
+  - label: Monthly Credits
+    name: pro_credits
+    type: usage
+    metric: credits
+    limit: 40000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $20 per month (or $220 per year)
+    userMultiplied: false
+  elements:
+  - name: 3000 Characters per Generation
+  - name: Up to 10 Custom Voices
+  - name: 3 Minutes of Dubbing
+- id: camb-ai-premier
+  name: Premier
+  type: paid
+  description: Larger video file support and more custom voices and concurrent teams.
+  entries:
+  - label: Monthly Credits
+    name: premier_credits
+    type: usage
+    metric: credits
+    limit: 150000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $75 per month (or $750 per year)
+    userMultiplied: false
+  elements:
+  - name: 1 GB Video File Support
+  - name: 50 Custom Voices
+  - name: 2 Concurrent Teams
+- id: camb-ai-advanced
+  name: Advanced
+  type: paid
+  description: High-volume tier with unlimited per-generation length and an analytics dashboard.
+  entries:
+  - label: Monthly Credits
+    name: advanced_credits
+    type: usage
+    metric: credits
+    limit: 500000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $250 per month (or $2500 per year)
+    userMultiplied: false
+  elements:
+  - name: Unlimited Generation Length
+  - name: 150 Custom Voices
+  - name: Analytics Dashboard
+- id: camb-ai-expert
+  name: Expert
+  type: paid
+  description: >-
+    Top published tier with enterprise-grade allowances, live-streaming support,
+    and large team structures.
+  entries:
+  - label: Monthly Credits
+    name: expert_credits
+    type: usage
+    metric: credits
+    limit: 1800000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $900 per month (or $9000 per year)
+    userMultiplied: false
+  elements:
+  - name: Unlimited Generation Length
+  - name: 150+ Custom Voices
+  - name: 15 Minutes Live Streaming, 1 Concurrent Stream
+  - name: Up to 50 Teams of 10 Members
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
