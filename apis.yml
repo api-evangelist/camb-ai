@@ -157,6 +157,10 @@ apis:
     or stream audio over a public WebSocket to receive cumulative interim transcripts
     and typed events in real time.
 common:
+- type: DomainSecurity
+  url: security/camb-ai-domain-security.yml
+- type: Authentication
+  url: authentication/camb-ai-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/camb-ai
 - type: Website
