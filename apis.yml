@@ -157,6 +157,8 @@ apis:
     or stream audio over a public WebSocket to receive cumulative interim transcripts
     and typed events in real time.
 common:
+- type: AgenticAccess
+  url: agentic-access/camb-ai-agentic-access.yml
 - type: DomainSecurity
   url: security/camb-ai-domain-security.yml
 - type: Authentication
