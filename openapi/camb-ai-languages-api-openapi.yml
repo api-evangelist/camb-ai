@@ -1,0 +1,83 @@
+openapi: 3.0.3
+info:
+  title: Camb.AI Dubbing Languages API
+  description: 'The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models. The REST API is served from https://client.camb.ai/apis and authenticated with an x-api-key header. Most operations are asynchronous: a POST starts a task and returns a task_id, the task is polled with a GET until its status is SUCCESS, and the result (audio, transcript, or translation) is then retrieved. Real-time streaming for TTS, transcription, and speech-to-speech translation is offered over separate public WebSocket channels (see the companion AsyncAPI document). Endpoint paths are grounded in the public documentation at https://docs.camb.ai; request and response schemas below are modeled from the documented parameters and may be simplified.'
+  version: '1.0'
+  contact:
+    name: Camb.AI
+    url: https://www.camb.ai
+servers:
+- url: https://client.camb.ai/apis
+  description: Camb.AI production API
+security:
+- apiKeyAuth: []
+tags:
+- name: Languages
+  description: Supported source and target languages.
+paths:
+  /source-languages:
+    get:
+      operationId: getSourceLanguages
+      tags:
+      - Languages
+      summary: List source languages
+      description: Lists all supported source languages with identifiers and locale tags.
+      responses:
+        '200':
+          description: A list of source languages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Language'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /target-languages:
+    get:
+      operationId: getTargetLanguages
+      tags:
+      - Languages
+      summary: List target languages
+      description: Lists all supported target languages with identifiers and locale tags.
+      responses:
+        '200':
+          description: A list of target languages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Language'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Language:
+      type: object
+      properties:
+        id:
+          type: integer
+        language:
+          type: string
+        short_name:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

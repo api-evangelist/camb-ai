@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: Camb.AI Dubbing Translation API
+  description: 'The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models. The REST API is served from https://client.camb.ai/apis and authenticated with an x-api-key header. Most operations are asynchronous: a POST starts a task and returns a task_id, the task is polled with a GET until its status is SUCCESS, and the result (audio, transcript, or translation) is then retrieved. Real-time streaming for TTS, transcription, and speech-to-speech translation is offered over separate public WebSocket channels (see the companion AsyncAPI document). Endpoint paths are grounded in the public documentation at https://docs.camb.ai; request and response schemas below are modeled from the documented parameters and may be simplified.'
+  version: '1.0'
+  contact:
+    name: Camb.AI
+    url: https://www.camb.ai
+servers:
+- url: https://client.camb.ai/apis
+  description: Camb.AI production API
+security:
+- apiKeyAuth: []
+tags:
+- name: Translation
+  description: Neural text translation via the BOLI model.
+paths:
+  /translate:
+    post:
+      operationId: createTranslation
+      tags:
+      - Translation
+      summary: Create a translation task
+      description: Translates an array of texts from a source language into a target language using the BOLI model, with optional formality, gender, and specialized-vocabulary controls.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslationRequest'
+      responses:
+        '200':
+          description: Translation task accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /translate/{task_id}:
+    get:
+      operationId: getTranslationStatus
+      tags:
+      - Translation
+      summary: Poll a translation task
+      description: Returns the status and, when complete, the translated texts.
+      parameters:
+      - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200':
+          description: Current translation task status and result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    TranslationRequest:
+      type: object
+      required:
+      - texts
+      - source_language
+      - target_language
+      properties:
+        texts:
+          type: array
+          description: An array of strings to be translated.
+          items:
+            type: string
+        source_language:
+          type: string
+          description: Source language locale tag.
+        target_language:
+          type: string
+          description: Target language locale tag.
+        formality:
+          type: string
+          description: Optional formality control.
+        gender:
+          type: string
+          description: Optional gender control.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
+    TaskStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
+          enum:
+          - PENDING
+          - PROCESSING
+          - SUCCESS
+          - FAILED
+        run_id:
+          type: integer
+          description: Present when the task has completed; used to fetch the result.
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    TaskId:
+      name: task_id
+      in: path
+      required: true
+      description: The task identifier returned when the task was created.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: Camb.AI Dubbing Transcription API
+  description: 'The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models. The REST API is served from https://client.camb.ai/apis and authenticated with an x-api-key header. Most operations are asynchronous: a POST starts a task and returns a task_id, the task is polled with a GET until its status is SUCCESS, and the result (audio, transcript, or translation) is then retrieved. Real-time streaming for TTS, transcription, and speech-to-speech translation is offered over separate public WebSocket channels (see the companion AsyncAPI document). Endpoint paths are grounded in the public documentation at https://docs.camb.ai; request and response schemas below are modeled from the documented parameters and may be simplified.'
+  version: '1.0'
+  contact:
+    name: Camb.AI
+    url: https://www.camb.ai
+servers:
+- url: https://client.camb.ai/apis
+  description: Camb.AI production API
+security:
+- apiKeyAuth: []
+tags:
+- name: Transcription
+  description: Speech-to-text transcription with timestamps.
+paths:
+  /transcribe:
+    post:
+      operationId: createTranscription
+      tags:
+      - Transcription
+      summary: Create a transcription task
+      description: Transcribes speech to text from an uploaded media file or a media URL, with speaker identification and word-level timestamps.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TranscriptionRequest'
+      responses:
+        '200':
+          description: Transcription task accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /transcribe/{task_id}:
+    get:
+      operationId: getTranscriptionStatus
+      tags:
+      - Transcription
+      summary: Poll a transcription task
+      description: Returns the status and, when complete, the transcript.
+      parameters:
+      - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200':
+          description: Current transcription task status and result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
+    TranscriptionRequest:
+      type: object
+      required:
+      - language
+      properties:
+        language:
+          type: string
+          description: Locale tag of the audio, for example en-us.
+        media_file:
+          type: string
+          format: binary
+          description: Binary audio or video file (MP3, WAV, AAC, FLAC, MP4, MOV, MXF).
+        media_url:
+          type: string
+          description: Media URL to transcribe (alternative to media_file).
+        project_name:
+          type: string
+        project_description:
+          type: string
+    TaskStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
+          enum:
+          - PENDING
+          - PROCESSING
+          - SUCCESS
+          - FAILED
+        run_id:
+          type: integer
+          description: Present when the task has completed; used to fetch the result.
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    TaskId:
+      name: task_id
+      in: path
+      required: true
+      description: The task identifier returned when the task was created.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

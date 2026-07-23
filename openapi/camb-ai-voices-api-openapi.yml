@@ -1,0 +1,210 @@
+openapi: 3.0.3
+info:
+  title: Camb.AI Dubbing Voices API
+  description: 'The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models. The REST API is served from https://client.camb.ai/apis and authenticated with an x-api-key header. Most operations are asynchronous: a POST starts a task and returns a task_id, the task is polled with a GET until its status is SUCCESS, and the result (audio, transcript, or translation) is then retrieved. Real-time streaming for TTS, transcription, and speech-to-speech translation is offered over separate public WebSocket channels (see the companion AsyncAPI document). Endpoint paths are grounded in the public documentation at https://docs.camb.ai; request and response schemas below are modeled from the documented parameters and may be simplified.'
+  version: '1.0'
+  contact:
+    name: Camb.AI
+    url: https://www.camb.ai
+servers:
+- url: https://client.camb.ai/apis
+  description: Camb.AI production API
+security:
+- apiKeyAuth: []
+tags:
+- name: Voices
+  description: Discover, clone, design, and manage voices.
+paths:
+  /list-voices:
+    get:
+      operationId: listVoices
+      tags:
+      - Voices
+      summary: List voices
+      description: Returns all available voices - public voices, shared voices, and custom-created voices - with metadata such as id, voice_name, gender, age, language, and description.
+      responses:
+        '200':
+          description: A list of voices.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Voice'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /create-custom-voice:
+    post:
+      operationId: createCustomVoice
+      tags:
+      - Voices
+      summary: Create a custom (cloned) voice
+      description: Clones a custom voice from a reference audio sample.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomVoiceRequest'
+      responses:
+        '200':
+          description: The created custom voice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /text-to-voice:
+    post:
+      operationId: createTextToVoice
+      tags:
+      - Voices
+      summary: Design a voice from a text description
+      description: Starts a task that generates candidate voices from a natural-language description.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextToVoiceRequest'
+      responses:
+        '200':
+          description: Voice-design task accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /text-to-voice/{task_id}:
+    get:
+      operationId: getTextToVoiceStatus
+      tags:
+      - Voices
+      summary: Poll a voice-design task
+      description: Returns the status and, when complete, the generated voice options.
+      parameters:
+      - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200':
+          description: Current voice-design task status and result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /delete-voice/{voice_id}:
+    delete:
+      operationId: deleteVoice
+      tags:
+      - Voices
+      summary: Delete a custom voice
+      description: Permanently removes a custom voice.
+      parameters:
+      - name: voice_id
+        in: path
+        required: true
+        description: The identifier of the custom voice to delete.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Voice deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
+    CustomVoiceRequest:
+      type: object
+      required:
+      - voice_name
+      - file
+      properties:
+        voice_name:
+          type: string
+          description: Name for the new custom voice.
+        file:
+          type: string
+          format: binary
+          description: Reference audio sample to clone from.
+        gender:
+          type: integer
+        age:
+          type: integer
+    TextToVoiceRequest:
+      type: object
+      required:
+      - voice_description
+      properties:
+        voice_description:
+          type: string
+          description: Natural-language description of the desired voice.
+        text:
+          type: string
+          description: Optional preview text to render with the generated voices.
+    TaskStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
+          enum:
+          - PENDING
+          - PROCESSING
+          - SUCCESS
+          - FAILED
+        run_id:
+          type: integer
+          description: Present when the task has completed; used to fetch the result.
+    Voice:
+      type: object
+      properties:
+        id:
+          type: integer
+        voice_name:
+          type: string
+        gender:
+          type: integer
+        age:
+          type: integer
+        language:
+          type: string
+        description:
+          type: string
+        is_published:
+          type: boolean
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    TaskId:
+      name: task_id
+      in: path
+      required: true
+      description: The task identifier returned when the task was created.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
