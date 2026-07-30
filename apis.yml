@@ -12,7 +12,20 @@ description: Camb.AI is a generative voice AI platform for translation, dubbing,
   until it succeeds, then fetch the result). Camb.AI also exposes public WebSocket
   surfaces for real-time streaming TTS, live transcription, and realtime
   speech-to-speech translation.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/camb-ai.png
 tags:
 - AI
 - Text to Speech
@@ -25,137 +38,174 @@ created: '2026-07-11'
 modified: '2026-07-11'
 specificationVersion: '0.19'
 apis:
-- aid: camb-ai:camb-ai-text-to-speech-api
-  name: Camb.AI Text-to-Speech API
-  tags:
-  - Text to Speech
-  - TTS
-  - MARS
-  - Streaming
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
-  baseURL: https://client.camb.ai/apis
-  properties:
-  - url: https://docs.camb.ai
-    type: Documentation
-  - url: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
-    type: APIReference
-  - url: openapi/camb-ai-openapi.yml
-    type: OpenAPI
-  - url: asyncapi/camb-ai-asyncapi.yml
-    type: AsyncAPI
-  - url: collections/camb-ai.postman_collection.json
-    type: PostmanCollection
-  - url: collections/camb-ai.opencollection.json
-    type: OpenCollection
-  description: Convert text into natural speech with the MARS voice models. Includes a
-    streaming endpoint (POST /tts-stream) that returns a binary audio stream, a
-    deprecated task-based create endpoint (POST /tts), status polling (GET /tts/{task_id}),
-    and audio retrieval (GET /tts-result/{run_id}), plus a public WebSocket for
-    real-time low-latency synthesis with optional word-level timestamps.
 - aid: camb-ai:camb-ai-dubbing-api
   name: Camb.AI Dubbing API
+  description: End-to-end video and audio dubbing across languages.
+  humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  baseURL: https://client.camb.ai/apis
   tags:
   - Dubbing
-  - Localization
-  - Video
-  - Audio
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
-  baseURL: https://client.camb.ai/apis
   properties:
-  - url: https://docs.camb.ai
-    type: Documentation
-  - url: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
-    type: APIReference
-  - url: openapi/camb-ai-openapi.yml
-    type: OpenAPI
-  - url: collections/camb-ai.postman_collection.json
-    type: PostmanCollection
-  - url: collections/camb-ai.opencollection.json
-    type: OpenCollection
-  description: End-to-end video and audio dubbing that preserves emotional delivery.
-    Submit a media URL with a source language and one or more target languages
-    (POST /dub), poll the task (GET /dub/{task_id}) for status, then retrieve the
-    dubbed outputs and translated transcripts per target language.
-- aid: camb-ai:camb-ai-translation-api
-  name: Camb.AI Translation API
+  - type: OpenAPI
+    url: openapi/camb-ai-dubbing-api-openapi.yml
+  - type: Documentation
+    url: https://docs.camb.ai
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  - type: AsyncAPI
+    url: asyncapi/camb-ai-asyncapi.yml
+  - type: PostmanCollection
+    url: collections/camb-ai.postman_collection.json
+  - type: OpenCollection
+    url: collections/camb-ai.opencollection.json
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-translation
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/list-voices
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-transcription
+- aid: camb-ai:camb-ai-languages-api
+  name: Camb.AI Languages API
+  description: Supported source and target languages.
+  humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  baseURL: https://client.camb.ai/apis
   tags:
-  - Translation
-  - BOLI
-  - Localization
   - Languages
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.camb.ai/api-reference/endpoint/create-translation
-  baseURL: https://client.camb.ai/apis
   properties:
-  - url: https://docs.camb.ai
-    type: Documentation
-  - url: https://docs.camb.ai/api-reference/endpoint/create-translation
-    type: APIReference
-  - url: openapi/camb-ai-openapi.yml
-    type: OpenAPI
-  - url: collections/camb-ai.postman_collection.json
-    type: PostmanCollection
-  - url: collections/camb-ai.opencollection.json
-    type: OpenCollection
-  description: Neural text translation powered by the BOLI model across 140+ language
-    pairs, with controls for formality, gender, and specialized vocabulary. Start a
-    translation task with an array of texts and source/target locale tags
-    (POST /translate), then poll the task (GET /translate/{task_id}) for the result.
-- aid: camb-ai:camb-ai-voices-api
-  name: Camb.AI Voices API
+  - type: OpenAPI
+    url: openapi/camb-ai-languages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.camb.ai
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  - type: AsyncAPI
+    url: asyncapi/camb-ai-asyncapi.yml
+  - type: PostmanCollection
+    url: collections/camb-ai.postman_collection.json
+  - type: OpenCollection
+    url: collections/camb-ai.opencollection.json
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-translation
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/list-voices
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-transcription
+- aid: camb-ai:camb-ai-text-to-speech-api
+  name: Camb.AI Text-to-Speech API
+  description: Convert text to speech with the MARS voice models.
+  humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  baseURL: https://client.camb.ai/apis
   tags:
-  - Voices
-  - Voice Cloning
-  - Text to Voice
-  - Catalog
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.camb.ai/api-reference/endpoint/list-voices
-  baseURL: https://client.camb.ai/apis
+  - Text-to-Speech
   properties:
-  - url: https://docs.camb.ai
-    type: Documentation
-  - url: https://docs.camb.ai/api-reference/endpoint/list-voices
-    type: APIReference
-  - url: openapi/camb-ai-openapi.yml
-    type: OpenAPI
-  - url: collections/camb-ai.postman_collection.json
-    type: PostmanCollection
-  - url: collections/camb-ai.opencollection.json
-    type: OpenCollection
-  description: Discover and manage the voices used across TTS and dubbing. List public,
-    shared, and custom voices (GET /list-voices), clone a custom voice from reference
-    audio (POST /create-custom-voice), design a brand-new voice from a text description
-    (POST /text-to-voice), and delete a custom voice (DELETE /delete-voice/{voice_id}).
+  - type: OpenAPI
+    url: openapi/camb-ai-text-to-speech-api-openapi.yml
+  - type: Documentation
+    url: https://docs.camb.ai
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  - type: AsyncAPI
+    url: asyncapi/camb-ai-asyncapi.yml
+  - type: PostmanCollection
+    url: collections/camb-ai.postman_collection.json
+  - type: OpenCollection
+    url: collections/camb-ai.opencollection.json
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-translation
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/list-voices
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-transcription
 - aid: camb-ai:camb-ai-transcription-api
   name: Camb.AI Transcription API
+  description: Speech-to-text transcription with timestamps.
+  humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  baseURL: https://client.camb.ai/apis
   tags:
   - Transcription
-  - Speech to Text
-  - ASR
-  - Streaming
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.camb.ai/api-reference/endpoint/create-transcription
-  baseURL: https://client.camb.ai/apis
   properties:
-  - url: https://docs.camb.ai
-    type: Documentation
-  - url: https://docs.camb.ai/api-reference/endpoint/create-transcription
-    type: APIReference
-  - url: openapi/camb-ai-openapi.yml
-    type: OpenAPI
-  - url: asyncapi/camb-ai-asyncapi.yml
-    type: AsyncAPI
-  - url: collections/camb-ai.postman_collection.json
-    type: PostmanCollection
-  - url: collections/camb-ai.opencollection.json
-    type: OpenCollection
-  description: Speech-to-text transcription with speaker identification and word-level
-    timestamps. Submit a media file or media URL with a language tag
-    (POST /transcribe) and poll the task (GET /transcribe/{task_id}) for the transcript,
-    or stream audio over a public WebSocket to receive cumulative interim transcripts
-    and typed events in real time.
+  - type: OpenAPI
+    url: openapi/camb-ai-transcription-api-openapi.yml
+  - type: Documentation
+    url: https://docs.camb.ai
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  - type: AsyncAPI
+    url: asyncapi/camb-ai-asyncapi.yml
+  - type: PostmanCollection
+    url: collections/camb-ai.postman_collection.json
+  - type: OpenCollection
+    url: collections/camb-ai.opencollection.json
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-translation
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/list-voices
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-transcription
+- aid: camb-ai:camb-ai-translation-api
+  name: Camb.AI Translation API
+  description: Neural text translation via the BOLI model.
+  humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  baseURL: https://client.camb.ai/apis
+  tags:
+  - Translation
+  properties:
+  - type: OpenAPI
+    url: openapi/camb-ai-translation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.camb.ai
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  - type: AsyncAPI
+    url: asyncapi/camb-ai-asyncapi.yml
+  - type: PostmanCollection
+    url: collections/camb-ai.postman_collection.json
+  - type: OpenCollection
+    url: collections/camb-ai.opencollection.json
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-translation
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/list-voices
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-transcription
+- aid: camb-ai:camb-ai-voices-api
+  name: Camb.AI Voices API
+  description: Discover, clone, design, and manage voices.
+  humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  baseURL: https://client.camb.ai/apis
+  tags:
+  - Voices
+  properties:
+  - type: OpenAPI
+    url: openapi/camb-ai-voices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.camb.ai
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
+  - type: AsyncAPI
+    url: asyncapi/camb-ai-asyncapi.yml
+  - type: PostmanCollection
+    url: collections/camb-ai.postman_collection.json
+  - type: OpenCollection
+    url: collections/camb-ai.opencollection.json
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-translation
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/list-voices
+  - type: APIReference
+    url: https://docs.camb.ai/api-reference/endpoint/create-transcription
 common:
 - type: AgenticAccess
   url: agentic-access/camb-ai-agentic-access.yml
