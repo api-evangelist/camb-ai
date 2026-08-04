@@ -1,0 +1,24 @@
+{
+  "provider": "camb-ai",
+  "sources": [
+    "camb-ai-dubbing-api-openapi.yml",
+    "camb-ai-languages-api-openapi.yml",
+    "camb-ai-text-to-speech-api-openapi.yml",
+    "camb-ai-transcription-api-openapi.yml",
+    "camb-ai-translation-api-openapi.yml",
+    "camb-ai-voices-api-openapi.yml"
+  ],
+  "outputs": [
+    "camb-ai-dubbing-api-openapi.yml",
+    "camb-ai-languages-api-openapi.yml",
+    "camb-ai-text-to-speech-api-openapi.yml",
+    "camb-ai-transcription-api-openapi.yml",
+    "camb-ai-translation-api-openapi.yml",
+    "camb-ai-voices-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
