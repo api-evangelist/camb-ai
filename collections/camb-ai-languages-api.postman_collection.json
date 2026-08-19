@@ -1,0 +1,291 @@
+{
+  "item": [
+    {
+      "id": "ee38f555-718c-4ffc-b26d-90a721006f99",
+      "name": "Languages",
+      "description": {
+        "content": "Supported source and target languages.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "74416f74-b0b3-4388-be8d-21322a88324d",
+          "name": "List source languages",
+          "request": {
+            "name": "List source languages",
+            "description": {
+              "content": "Lists all supported source languages with identifiers and locale tags.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "source-languages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b07417f-0f7c-430c-8862-318b8dd17d85",
+              "name": "A list of source languages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "source-languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 2620,\n    \"language\": \"string\",\n    \"short_name\": \"string\"\n  },\n  {\n    \"id\": 2981,\n    \"language\": \"string\",\n    \"short_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5f6afa4-1e04-42ac-8e16-8f36bc0e725f",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "source-languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "714e2a25-a424-4367-8539-3cdc70a82096",
+          "name": "List target languages",
+          "request": {
+            "name": "List target languages",
+            "description": {
+              "content": "Lists all supported target languages with identifiers and locale tags.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "target-languages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff1e8f8e-053c-47d7-868d-105fc435312c",
+              "name": "A list of target languages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "target-languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 2620,\n    \"language\": \"string\",\n    \"short_name\": \"string\"\n  },\n  {\n    \"id\": 2981,\n    \"language\": \"string\",\n    \"short_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf7029fb-b7a1-4631-a44d-76b4edb3600b",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "target-languages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://client.camb.ai/apis",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e06e80e2-7c5c-40e3-a38a-10be11e708ab",
+    "name": "Camb.AI Dubbing Languages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models. The REST API is served from https://client.camb.ai/apis and authenticated with an x-api-key header. Most operations are asynchronous: a POST starts a task and returns a task_id, the task is polled with a GET until its status is SUCCESS, and the result (audio, transcript, or translation) is then retrieved. Real-time streaming for TTS, transcription, and speech-to-speech translation is offered over separate public WebSocket channels (see the companion AsyncAPI document). Endpoint paths are grounded in the public documentation at https://docs.camb.ai; request and response schemas below are modeled from the documented parameters and may be simplified.\n\nContact Support:\n Name: Camb.AI",
+      "type": "text/plain"
+    }
+  }
+}

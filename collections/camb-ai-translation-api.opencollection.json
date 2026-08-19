@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Camb.AI Dubbing Translation API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Translation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a translation task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/translate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Translates an array of texts from a source language into a target language using the BOLI model, with optional formality, gender, and specialized-vocabulary controls."
+        },
+        {
+          "info": {
+            "name": "Poll a translation task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/translate/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "The task identifier returned when the task was created."
+              }
+            ]
+          },
+          "docs": "Returns the status and, when complete, the translated texts."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,645 @@
+{
+  "item": [
+    {
+      "id": "d6d06838-f4d4-4f44-a146-7e30b13dbea8",
+      "name": "Text-to-Speech",
+      "description": {
+        "content": "Convert text to speech with the MARS voice models.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "01d5dc40-8d7a-49f2-b165-bb4b04e095fe",
+          "name": "Stream text-to-speech",
+          "request": {
+            "name": "Stream text-to-speech",
+            "description": {
+              "content": "Synthesize speech from text and return a binary audio stream in real time. The response is an audio byte stream (for example audio/wav or audio/mpeg) and includes an X-Credits-Required header indicating credit usage.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tts-stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "audio/wav"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice_id\": \"<integer>\",\n  \"speech_model\": \"<string>\",\n  \"user_instructions\": \"<string>\",\n  \"enhance_named_entities_pronunciation\": \"<boolean>\",\n  \"output_configuration\": \"<object>\",\n  \"voice_settings\": \"<object>\",\n  \"inference_options\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "51252376-12dd-4f82-9e98-2f64ba7c3d90",
+              "name": "A binary audio stream.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts-stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "audio/wav"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice_id\": \"<integer>\",\n  \"speech_model\": \"<string>\",\n  \"user_instructions\": \"<string>\",\n  \"enhance_named_entities_pronunciation\": \"<boolean>\",\n  \"output_configuration\": \"<object>\",\n  \"voice_settings\": \"<object>\",\n  \"inference_options\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "audio/wav"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "574a9764-6d7b-4899-aa69-f57da83d14fe",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts-stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"language\": \"<string>\",\n  \"voice_id\": \"<integer>\",\n  \"speech_model\": \"<string>\",\n  \"user_instructions\": \"<string>\",\n  \"enhance_named_entities_pronunciation\": \"<boolean>\",\n  \"output_configuration\": \"<object>\",\n  \"voice_settings\": \"<object>\",\n  \"inference_options\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fd6e214-7fbf-44ea-b1e2-156dc32b0549",
+          "name": "Create a text-to-speech task (deprecated)",
+          "request": {
+            "name": "Create a text-to-speech task (deprecated)",
+            "description": {
+              "content": "Deprecated. For new integrations use POST /tts-stream. Starts an asynchronous text-to-speech task and returns a task_id to poll.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"<string>\",\n  \"voice_id\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"gender\": \"<integer>\",\n  \"age\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bd6307b2-7c88-4f7a-9b59-f2c076b9ab5a",
+              "name": "Task accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"voice_id\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"gender\": \"<integer>\",\n  \"age\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"task_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7d74ec6-287f-484b-a2bd-3c478ca33e49",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"text\": \"<string>\",\n  \"voice_id\": \"<integer>\",\n  \"language\": \"<string>\",\n  \"gender\": \"<integer>\",\n  \"age\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e80a98c-d814-42fc-934a-4f3fa6475c1d",
+          "name": "Poll a text-to-speech task",
+          "request": {
+            "name": "Poll a text-to-speech task",
+            "description": {
+              "content": "Returns the status of a TTS task and, when complete, the run_id used to fetch the audio.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tts",
+                ":task_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "task_id",
+                  "description": "(Required) The task identifier returned when the task was created."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd67475e-c427-4197-ac4e-460a4b56a196",
+              "name": "Current task status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) The task identifier returned when the task was created."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"PENDING\",\n  \"run_id\": 4887\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f798397-bff4-4192-94fb-28c452a105e6",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) The task identifier returned when the task was created."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57bb75de-54b8-4290-a3f6-b365ee5d2048",
+          "name": "Download text-to-speech audio",
+          "request": {
+            "name": "Download text-to-speech audio",
+            "description": {
+              "content": "Retrieves the generated audio file for a completed TTS run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tts-result",
+                ":run_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "run_id",
+                  "description": "(Required) The run identifier returned by GET /tts/{task_id}."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "audio/wav"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7124ba6-5198-47e6-b948-a0c33017b2f4",
+              "name": "The generated audio file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts-result",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "run_id",
+                      "description": "(Required) The run identifier returned by GET /tts/{task_id}."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "audio/wav"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "audio/wav"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58899587-0b8e-4277-9585-a758564f11a4",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tts-result",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "run_id",
+                      "description": "(Required) The run identifier returned by GET /tts/{task_id}."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://client.camb.ai/apis",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4049eebd-e6b3-4c58-a9fd-5963004c6cda",
+    "name": "Camb.AI Dubbing Text-to-Speech API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models. The REST API is served from https://client.camb.ai/apis and authenticated with an x-api-key header. Most operations are asynchronous: a POST starts a task and returns a task_id, the task is polled with a GET until its status is SUCCESS, and the result (audio, transcript, or translation) is then retrieved. Real-time streaming for TTS, transcription, and speech-to-speech translation is offered over separate public WebSocket channels (see the companion AsyncAPI document). Endpoint paths are grounded in the public documentation at https://docs.camb.ai; request and response schemas below are modeled from the documented parameters and may be simplified.\n\nContact Support:\n Name: Camb.AI",
+      "type": "text/plain"
+    }
+  }
+}

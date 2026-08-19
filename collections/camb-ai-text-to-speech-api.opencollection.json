@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Camb.AI Dubbing Text-to-Speech API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Text-to-Speech",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stream text-to-speech",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/tts-stream",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Synthesize speech from text and return a binary audio stream in real time. The response is an audio byte stream (for example audio/wav or audio/mpeg) and includes an X-Credits-Required header indicating credit usage."
+        },
+        {
+          "info": {
+            "name": "Create a text-to-speech task (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/tts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deprecated. For new integrations use POST /tts-stream. Starts an asynchronous text-to-speech task and returns a task_id to poll."
+        },
+        {
+          "info": {
+            "name": "Poll a text-to-speech task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/tts/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "The task identifier returned when the task was created."
+              }
+            ]
+          },
+          "docs": "Returns the status of a TTS task and, when complete, the run_id used to fetch the audio."
+        },
+        {
+          "info": {
+            "name": "Download text-to-speech audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/tts-result/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "The run identifier returned by GET /tts/{task_id}."
+              }
+            ]
+          },
+          "docs": "Retrieves the generated audio file for a completed TTS run."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

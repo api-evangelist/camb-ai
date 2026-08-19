@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Camb.AI Dubbing Voices API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Voices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List voices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/list-voices"
+          },
+          "docs": "Returns all available voices - public voices, shared voices, and custom-created voices - with metadata such as id, voice_name, gender, age, language, and description."
+        },
+        {
+          "info": {
+            "name": "Create a custom (cloned) voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/create-custom-voice",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Clones a custom voice from a reference audio sample."
+        },
+        {
+          "info": {
+            "name": "Design a voice from a text description",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/text-to-voice",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a task that generates candidate voices from a natural-language description."
+        },
+        {
+          "info": {
+            "name": "Poll a voice-design task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/text-to-voice/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "The task identifier returned when the task was created."
+              }
+            ]
+          },
+          "docs": "Returns the status and, when complete, the generated voice options."
+        },
+        {
+          "info": {
+            "name": "Delete a custom voice",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://client.camb.ai/apis/delete-voice/:voice_id",
+            "params": [
+              {
+                "name": "voice_id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the custom voice to delete."
+              }
+            ]
+          },
+          "docs": "Permanently removes a custom voice."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

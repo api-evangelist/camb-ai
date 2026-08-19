@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Camb.AI Dubbing API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dubbing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an end-to-end dubbing task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://client.camb.ai/apis/dub",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts an end-to-end dubbing task for a media file, translating and re-voicing it into one or more target languages while preserving delivery."
+        },
+        {
+          "info": {
+            "name": "Poll a dubbing task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/dub/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "The task identifier returned when the task was created."
+              }
+            ]
+          },
+          "docs": "Returns the status and, when complete, the results of a dubbing task."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Camb.AI Dubbing Languages API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Languages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List source languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/source-languages"
+          },
+          "docs": "Lists all supported source languages with identifiers and locale tags."
+        },
+        {
+          "info": {
+            "name": "List target languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://client.camb.ai/apis/target-languages"
+          },
+          "docs": "Lists all supported target languages with identifiers and locale tags."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

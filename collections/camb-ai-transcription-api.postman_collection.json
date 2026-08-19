@@ -1,0 +1,454 @@
+{
+  "item": [
+    {
+      "id": "0e4d8ecd-b1e6-4ac8-b443-9a1c33d4635c",
+      "name": "Transcription",
+      "description": {
+        "content": "Speech-to-text transcription with timestamps.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8f1567a5-062d-40bd-8416-726f450e26a5",
+          "name": "Create a transcription task",
+          "request": {
+            "name": "Create a transcription task",
+            "description": {
+              "content": "Transcribes speech to text from an uploaded media file or a media URL, with speaker identification and word-level timestamps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transcribe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "language",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Locale tag of the audio, for example en-us."
+                },
+                {
+                  "key": "media_file",
+                  "type": "file",
+                  "description": "Binary audio or video file (MP3, WAV, AAC, FLAC, MP4, MOV, MXF)."
+                },
+                {
+                  "key": "media_url",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Media URL to transcribe (alternative to media_file)."
+                },
+                {
+                  "key": "project_name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "project_description",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f3b60f56-65ae-4e0c-8c7b-bb29db8dccf5",
+              "name": "Transcription task accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transcribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Locale tag of the audio, for example en-us.",
+                        "type": "text/plain"
+                      },
+                      "key": "language",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary audio or video file (MP3, WAV, AAC, FLAC, MP4, MOV, MXF).",
+                        "type": "text/plain"
+                      },
+                      "key": "media_file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Media URL to transcribe (alternative to media_file).",
+                        "type": "text/plain"
+                      },
+                      "key": "media_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "project_description",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"task_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58f4bbc9-b008-43fa-b042-620d0d06c902",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transcribe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Locale tag of the audio, for example en-us.",
+                        "type": "text/plain"
+                      },
+                      "key": "language",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary audio or video file (MP3, WAV, AAC, FLAC, MP4, MOV, MXF).",
+                        "type": "text/plain"
+                      },
+                      "key": "media_file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Media URL to transcribe (alternative to media_file).",
+                        "type": "text/plain"
+                      },
+                      "key": "media_url",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "project_name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "project_description",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3238335a-bbf3-4227-8868-a38ef206c377",
+          "name": "Poll a transcription task",
+          "request": {
+            "name": "Poll a transcription task",
+            "description": {
+              "content": "Returns the status and, when complete, the transcript.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transcribe",
+                ":task_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "task_id",
+                  "description": "(Required) The task identifier returned when the task was created."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f685600-c346-4bca-a303-05b5263c21a6",
+              "name": "Current transcription task status and result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transcribe",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) The task identifier returned when the task was created."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"PENDING\",\n  \"run_id\": 9289\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "411e4cad-9cb0-4b27-b934-c765a4ce16be",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transcribe",
+                    ":task_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "task_id",
+                      "description": "(Required) The task identifier returned when the task was created."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://client.camb.ai/apis",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d59d23c5-f975-45e1-96fb-854547b9a358",
+    "name": "Camb.AI Dubbing Transcription API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models. The REST API is served from https://client.camb.ai/apis and authenticated with an x-api-key header. Most operations are asynchronous: a POST starts a task and returns a task_id, the task is polled with a GET until its status is SUCCESS, and the result (audio, transcript, or translation) is then retrieved. Real-time streaming for TTS, transcription, and speech-to-speech translation is offered over separate public WebSocket channels (see the companion AsyncAPI document). Endpoint paths are grounded in the public documentation at https://docs.camb.ai; request and response schemas below are modeled from the documented parameters and may be simplified.\n\nContact Support:\n Name: Camb.AI",
+      "type": "text/plain"
+    }
+  }
+}
