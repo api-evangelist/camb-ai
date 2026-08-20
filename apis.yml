@@ -27,6 +27,14 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/camb-ai.png
 tags:
+- Artificial Intelligence
+- Text-to-Speech
+- Dubbing
+- Translation
+- Transcription
+- Voice Cloning
+- Speech
+tags_raw:
 - AI
 - Text to Speech
 - Dubbing
@@ -72,6 +80,8 @@ apis:
   humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
   baseURL: https://client.camb.ai/apis
   tags:
+  - Language
+  tags_raw:
   - Languages
   properties:
   - type: OpenAPI
