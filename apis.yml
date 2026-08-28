@@ -12,6 +12,18 @@ description: Camb.AI is a generative voice AI platform for translation, dubbing,
   until it succeeds, then fetch the result). Camb.AI also exposes public WebSocket
   surfaces for real-time streaming TTS, live transcription, and realtime
   speech-to-speech translation.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
