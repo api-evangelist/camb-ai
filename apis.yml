@@ -207,6 +207,8 @@ apis:
   humanURL: https://docs.camb.ai/api-reference/endpoint/create-tts-stream
   baseURL: https://client.camb.ai/apis
   tags:
+  - Voice
+  tags_raw:
   - Voices
   properties:
   - type: OpenAPI
