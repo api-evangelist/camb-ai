@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Camb.AI Dubbing Voices API
-  description: 'The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models. The REST API is served from https://client.camb.ai/apis and authenticated with an x-api-key header. Most operations are asynchronous: a POST starts a task and returns a task_id, the task is polled with a GET until its status is SUCCESS, and the result (audio, transcript, or translation) is then retrieved. Real-time streaming for TTS, transcription, and speech-to-speech translation is offered over separate public WebSocket channels (see the companion AsyncAPI document). Endpoint paths are grounded in the public documentation at https://docs.camb.ai; request and response schemas below are modeled from the documented parameters and may be simplified.'
+  title: Camb.AI Voices API
+  description: The Camb.AI API provides generative voice AI - text-to-speech, dubbing, translation, voice discovery and cloning, and transcription - powered by the MARS (speech / voice) and BOLI (translation) research models.
   version: '1.0'
   contact:
     name: Camb.AI
@@ -116,19 +116,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
     CustomVoiceRequest:
       type: object
       required:
@@ -146,6 +133,13 @@ components:
           type: integer
         age:
           type: integer
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     TextToVoiceRequest:
       type: object
       required:
@@ -157,20 +151,6 @@ components:
         text:
           type: string
           description: Optional preview text to render with the generated voices.
-    TaskStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
-          enum:
-          - PENDING
-          - PROCESSING
-          - SUCCESS
-          - FAILED
-        run_id:
-          type: integer
-          description: Present when the task has completed; used to fetch the result.
     Voice:
       type: object
       properties:
@@ -188,6 +168,26 @@ components:
           type: string
         is_published:
           type: boolean
+    TaskStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
+          enum:
+          - PENDING
+          - PROCESSING
+          - SUCCESS
+          - FAILED
+        run_id:
+          type: integer
+          description: Present when the task has completed; used to fetch the result.
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
   responses:
     Unauthorized:
       description: Missing or invalid API key.
