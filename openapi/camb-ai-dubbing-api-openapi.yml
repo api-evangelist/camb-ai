@@ -56,14 +56,31 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    DubRequest:
+      type: object
+      required:
+      - video_url
+      - source_language
+      - target_languages
+      properties:
+        video_url:
+          type: string
+          description: URL of the media file to dub.
+        source_language:
+          type: string
+          description: Source language locale tag, for example en-us.
+        target_languages:
+          type: array
+          description: Target language locale tags, for example ["es-es", "fr-fr"].
+          items:
+            type: string
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
     Error:
       type: object
       properties:
@@ -85,30 +102,13 @@ components:
         run_id:
           type: integer
           description: Present when the task has completed; used to fetch the result.
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
-    DubRequest:
-      type: object
-      required:
-      - video_url
-      - source_language
-      - target_languages
-      properties:
-        video_url:
-          type: string
-          description: URL of the media file to dub.
-        source_language:
-          type: string
-          description: Source language locale tag, for example en-us.
-        target_languages:
-          type: array
-          description: Target language locale tags, for example ["es-es", "fr-fr"].
-          items:
-            type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     TaskId:
       name: task_id

@@ -64,6 +64,12 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
     Error:
       type: object
       properties:
@@ -104,12 +110,6 @@ components:
         run_id:
           type: integer
           description: Present when the task has completed; used to fetch the result.
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
   parameters:
     TaskId:
       name: task_id
