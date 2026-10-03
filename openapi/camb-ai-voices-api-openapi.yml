@@ -116,29 +116,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    CustomVoiceRequest:
-      type: object
-      required:
-      - voice_name
-      - file
-      properties:
-        voice_name:
-          type: string
-          description: Name for the new custom voice.
-        file:
-          type: string
-          format: binary
-          description: Reference audio sample to clone from.
-        gender:
-          type: integer
-        age:
-          type: integer
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
     Voice:
       type: object
       properties:
@@ -156,17 +133,23 @@ components:
           type: string
         is_published:
           type: boolean
-    TextToVoiceRequest:
+    CustomVoiceRequest:
       type: object
       required:
-      - voice_description
+      - voice_name
+      - file
       properties:
-        voice_description:
+        voice_name:
           type: string
-          description: Natural-language description of the desired voice.
-        text:
+          description: Name for the new custom voice.
+        file:
           type: string
-          description: Optional preview text to render with the generated voices.
+          format: binary
+          description: Reference audio sample to clone from.
+        gender:
+          type: integer
+        age:
+          type: integer
     Error:
       type: object
       properties:
@@ -188,13 +171,23 @@ components:
         run_id:
           type: integer
           description: Present when the task has completed; used to fetch the result.
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    TextToVoiceRequest:
+      type: object
+      required:
+      - voice_description
+      properties:
+        voice_description:
+          type: string
+          description: Natural-language description of the desired voice.
+        text:
+          type: string
+          description: Optional preview text to render with the generated voices.
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
   parameters:
     TaskId:
       name: task_id
@@ -203,6 +196,13 @@ components:
       description: The task identifier returned when the task was created.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

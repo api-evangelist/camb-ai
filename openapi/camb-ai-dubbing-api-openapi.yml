@@ -75,12 +75,6 @@ components:
           description: Target language locale tags, for example ["es-es", "fr-fr"].
           items:
             type: string
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
     Error:
       type: object
       properties:
@@ -102,13 +96,12 @@ components:
         run_id:
           type: integer
           description: Present when the task has completed; used to fetch the result.
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
   parameters:
     TaskId:
       name: task_id
@@ -117,6 +110,13 @@ components:
       description: The task identifier returned when the task was created.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -56,27 +56,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
     TranscriptionRequest:
       type: object
       required:
@@ -96,6 +76,13 @@ components:
           type: string
         project_description:
           type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     TaskStatus:
       type: object
       properties:
@@ -110,6 +97,12 @@ components:
         run_id:
           type: integer
           description: Present when the task has completed; used to fetch the result.
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
   parameters:
     TaskId:
       name: task_id
@@ -118,6 +111,13 @@ components:
       description: The task identifier returned when the task was created.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

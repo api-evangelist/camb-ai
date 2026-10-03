@@ -56,20 +56,28 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    TaskCreated:
+    Error:
       type: object
       properties:
-        task_id:
+        message:
           type: string
-          description: Identifier used to poll the task.
+        code:
+          type: string
+    TaskStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
+          enum:
+          - PENDING
+          - PROCESSING
+          - SUCCESS
+          - FAILED
+        run_id:
+          type: integer
+          description: Present when the task has completed; used to fetch the result.
     TranslationRequest:
       type: object
       required:
@@ -94,27 +102,12 @@ components:
         gender:
           type: string
           description: Optional gender control.
-    Error:
+    TaskCreated:
       type: object
       properties:
-        message:
+        task_id:
           type: string
-        code:
-          type: string
-    TaskStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
-          enum:
-          - PENDING
-          - PROCESSING
-          - SUCCESS
-          - FAILED
-        run_id:
-          type: integer
-          description: Present when the task has completed; used to fetch the result.
+          description: Identifier used to poll the task.
   parameters:
     TaskId:
       name: task_id
@@ -123,6 +116,13 @@ components:
       description: The task identifier returned when the task was created.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
