@@ -115,7 +115,33 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    TaskId:
+      name: task_id
+      in: path
+      required: true
+      description: The task identifier returned when the task was created.
+      schema:
+        type: string
   schemas:
+    TextToVoiceRequest:
+      type: object
+      required:
+      - voice_description
+      properties:
+        voice_description:
+          type: string
+          description: Natural-language description of the desired voice.
+        text:
+          type: string
+          description: Optional preview text to render with the generated voices.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     Voice:
       type: object
       properties:
@@ -150,13 +176,12 @@ components:
           type: integer
         age:
           type: integer
-    Error:
+    TaskCreated:
       type: object
       properties:
-        message:
+        task_id:
           type: string
-        code:
-          type: string
+          description: Identifier used to poll the task.
     TaskStatus:
       type: object
       properties:
@@ -171,31 +196,6 @@ components:
         run_id:
           type: integer
           description: Present when the task has completed; used to fetch the result.
-    TextToVoiceRequest:
-      type: object
-      required:
-      - voice_description
-      properties:
-        voice_description:
-          type: string
-          description: Natural-language description of the desired voice.
-        text:
-          type: string
-          description: Optional preview text to render with the generated voices.
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
-  parameters:
-    TaskId:
-      name: task_id
-      in: path
-      required: true
-      description: The task identifier returned when the task was created.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Missing or invalid API key.

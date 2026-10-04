@@ -57,27 +57,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-    TaskStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
-          enum:
-          - PENDING
-          - PROCESSING
-          - SUCCESS
-          - FAILED
-        run_id:
-          type: integer
-          description: Present when the task has completed; used to fetch the result.
     TranslationRequest:
       type: object
       required:
@@ -102,12 +81,33 @@ components:
         gender:
           type: string
           description: Optional gender control.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     TaskCreated:
       type: object
       properties:
         task_id:
           type: string
           description: Identifier used to poll the task.
+    TaskStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
+          enum:
+          - PENDING
+          - PROCESSING
+          - SUCCESS
+          - FAILED
+        run_id:
+          type: integer
+          description: Present when the task has completed; used to fetch the result.
   parameters:
     TaskId:
       name: task_id

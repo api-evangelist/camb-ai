@@ -104,34 +104,15 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    TaskId:
+      name: task_id
+      in: path
+      required: true
+      description: The task identifier returned when the task was created.
+      schema:
+        type: string
   schemas:
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-    TaskStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
-          enum:
-          - PENDING
-          - PROCESSING
-          - SUCCESS
-          - FAILED
-        run_id:
-          type: integer
-          description: Present when the task has completed; used to fetch the result.
     TtsRequest:
       type: object
       required:
@@ -154,6 +135,13 @@ components:
         age:
           type: integer
           description: Speaker age characteristic.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     TtsStreamRequest:
       type: object
       required:
@@ -189,14 +177,26 @@ components:
         inference_options:
           type: object
           description: Stability, temperature, and speaker similarity.
-  parameters:
-    TaskId:
-      name: task_id
-      in: path
-      required: true
-      description: The task identifier returned when the task was created.
-      schema:
-        type: string
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
+    TaskStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
+          enum:
+          - PENDING
+          - PROCESSING
+          - SUCCESS
+          - FAILED
+        run_id:
+          type: integer
+          description: Present when the task has completed; used to fetch the result.
   responses:
     Unauthorized:
       description: Missing or invalid API key.
