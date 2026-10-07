@@ -238,6 +238,8 @@ apis:
   - type: APIReference
     url: https://docs.camb.ai/api-reference/endpoint/create-transcription
 common:
+- type: Pricing
+  url: https://www.camb.ai/pricing
 - type: AgenticAccess
   url: agentic-access/camb-ai-agentic-access.yml
 - type: DomainSecurity
