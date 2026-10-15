@@ -37,3 +37,57 @@
   relationship: system-coverage
   status: not-a-workflow
   arazzo: null
+- slug: camb-ai-zapier
+  label: Zapier
+  partner: zapier
+  partner_name: Zapier
+  type: marketplace
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  evidence: https://zapier.com/apps/cambai/integrations
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: CAMB.AI
+    matched_domain: camb.ai
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: cambai
+    beta: false
+    builder: unknown (not in the directory record)
+  status: pending-generation
+  arazzo: null
+- slug: camb-ai-n8n
+  label: n8n
+  partner: n8n
+  partner_name: n8n
+  type: marketplace
+  marketplace: n8n-community
+  channel: open-source-node
+  evidence: https://www.npmjs.com/package/@camb-ai/n8n-nodes-cambai
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: n8n community nodes (npm keyword n8n-community-node-package)
+    spec_file: null
+    role: ipaas-connector:n8n-community
+    registered_name: '@camb-ai/n8n-nodes-cambai'
+    matched_domain: camb.ai
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    package: '@camb-ai/n8n-nodes-cambai'
+    version: 0.1.5
+    published: '2026-03-13T10:16:58.329Z'
+    matched_on: publisher-email
+    builder: provider (package published from the provider's own domain)
+    other_packages:
+    - '@cambai/n8n-nodes-google-vertex-camb'
+  status: pending-generation
+  arazzo: null
