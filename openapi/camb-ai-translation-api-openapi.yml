@@ -56,6 +56,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     TranslationRequest:
       type: object
@@ -81,6 +88,12 @@ components:
         gender:
           type: string
           description: Optional gender control.
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
     Error:
       type: object
       properties:
@@ -88,12 +101,6 @@ components:
           type: string
         code:
           type: string
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
     TaskStatus:
       type: object
       properties:
@@ -116,13 +123,6 @@ components:
       description: The task identifier returned when the task was created.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

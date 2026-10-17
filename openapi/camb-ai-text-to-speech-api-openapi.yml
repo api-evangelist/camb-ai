@@ -104,15 +104,27 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    TaskId:
-      name: task_id
-      in: path
-      required: true
-      description: The task identifier returned when the task was created.
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    TaskCreated:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: Identifier used to poll the task.
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     TtsRequest:
       type: object
       required:
@@ -135,13 +147,20 @@ components:
         age:
           type: integer
           description: Speaker age characteristic.
-    Error:
+    TaskStatus:
       type: object
       properties:
-        message:
+        status:
           type: string
-        code:
-          type: string
+          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
+          enum:
+          - PENDING
+          - PROCESSING
+          - SUCCESS
+          - FAILED
+        run_id:
+          type: integer
+          description: Present when the task has completed; used to fetch the result.
     TtsStreamRequest:
       type: object
       required:
@@ -177,33 +196,14 @@ components:
         inference_options:
           type: object
           description: Stability, temperature, and speaker similarity.
-    TaskCreated:
-      type: object
-      properties:
-        task_id:
-          type: string
-          description: Identifier used to poll the task.
-    TaskStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Task status, for example PENDING, PROCESSING, SUCCESS, or FAILED.
-          enum:
-          - PENDING
-          - PROCESSING
-          - SUCCESS
-          - FAILED
-        run_id:
-          type: integer
-          description: Present when the task has completed; used to fetch the result.
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    TaskId:
+      name: task_id
+      in: path
+      required: true
+      description: The task identifier returned when the task was created.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
