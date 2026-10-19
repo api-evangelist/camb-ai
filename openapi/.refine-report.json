@@ -1,30 +1,20 @@
 {
   "provider": "camb-ai",
   "sources": [
-    "_original/camb-ai-openapi.yml"
+    "_original/camb-ai-openapi.json"
   ],
   "outputs": [
-    "camb-ai-dubbing-api-openapi.yml",
-    "camb-ai-languages-api-openapi.yml",
-    "camb-ai-text-to-speech-api-openapi.yml",
-    "camb-ai-transcription-api-openapi.yml",
-    "camb-ai-translation-api-openapi.yml",
-    "camb-ai-voices-api-openapi.yml"
+    "camb-ai-fastapi-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "camb-ai-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "camb-ai-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "camb-ai-openapi.json: tagged paths GET / -> FastAPI",
+    "camb-ai-openapi.json: declared missing tag: FastAPI",
+    "apis.yml register: written (+1 apis, 1 total)"
   ],
-  "skipped": [
-    "camb-ai-dubbing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "camb-ai-languages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "camb-ai-text-to-speech-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "camb-ai-transcription-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "camb-ai-translation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "camb-ai-voices-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
