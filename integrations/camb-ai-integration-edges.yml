@@ -6,6 +6,7 @@ checked:
 - https://github.com/pipecat-ai/pipecat/tree/main/src/pipecat/services
 - https://registry.npmjs.org/-/v1/search?text=keywords:n8n-community-node-package
 - https://zapier.com/api/v4/apps/
+- n8n/integrations/n8n-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -115,6 +116,21 @@ edges:
     - '@cambai/n8n-nodes-google-vertex-camb'
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: n8n (n8n-community)
+  partner: n8n
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: n8n-community
+  evidence: https://www.npmjs.com/package/@camb-ai/n8n-nodes-cambai
+  mirror_of: n8n/integrations/n8n-integration-edges.yml
+  apps: []
+  listing_count: 1
+  detected: '2026-10-19'
+  detected_by: mirror-platform-listings.py
 source:
 - https://registry.npmjs.org/-/v1/search?text=keywords:n8n-community-node-package
 - https://zapier.com/api/v4/apps/
