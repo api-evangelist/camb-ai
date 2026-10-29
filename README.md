@@ -1,4 +1,4 @@
-# Camb.AI (camb-ai)
+# Camb.AI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,89 +64,148 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Camb.AI is a generative voice AI platform for translation, dubbing, and speech. Its research models - MARS (text-to-speech and voice cloning) and BOLI (neural translation) - power an API covering text-to-speech, end-to-end video and audio dubbing, text translation across 140+ languages, voice discovery and custom voice cloning, and speech-to-text transcription.
+Camb.AI is a generative voice AI platform for translation, dubbing, and speech. Its research models - MARS (text-to-speech and voice cloning) and BOLI (neural translation) - power an API covering text-to-speech, end-to-end video and audio dubbing, text translation across 140+ languages, voice discovery and custom voice cloning, and speech-to-text transcription. The REST API lives at https://client.camb.ai/apis, is authenticated with an x-api-key header, and follows an asynchronous create-and-poll pattern (POST to start a task, GET the task by id until it succeeds, then fetch the result). Camb.AI also exposes public WebSocket surfaces for real-time streaming TTS, live transcription, and realtime speech-to-speech translation.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/camb-ai/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/camb-ai/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Text-to-Speech · Dubbing · Translation · Transcription · Voice Cloning · Speech · Real-Time
 
-## Access Model
+## Camb.AI on APIs.io
 
-Camb.AI is a commercial SaaS. The REST API lives at `https://client.camb.ai/apis` and is authenticated with an `x-api-key` header (keys are issued from your Camb.AI account). Most operations are **asynchronous**: you POST to start a task and receive a `task_id`, then GET `/{resource}/{task_id}` and poll until the status is `SUCCESS`, then retrieve the result (audio, transcript, or translation). Streaming text-to-speech (`POST /tts-stream`) instead returns a binary audio stream directly.
+Everything profiled for Camb.AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/camb-ai/](https://apis.io/providers/camb-ai/)** — or go straight to one of the APIs or properties below.
 
-Camb.AI **also exposes public WebSocket channels** (`wss`) for real-time work: live streaming TTS, live transcription, and realtime speech-to-speech translation. These are modeled in a companion AsyncAPI document.
+### APIs (6)
 
-Pricing is a six-tier monthly (or discounted annual) subscription (Free through Expert), each bundling a monthly allowance of **credits** that are consumed across all products. Official SDKs are published for Python, TypeScript, Go, Java, PHP, and Rust at [github.com/Camb-ai](https://github.com/Camb-ai). The MARS and BOLI models are proprietary hosted services and are not self-hostable.
+- [Camb.AI Dubbing API](https://apis.io/apis/camb-ai/camb-ai-dubbing-api/) — End-to-end video and audio dubbing across languages.
+- [Camb.AI Languages API](https://apis.io/apis/camb-ai/camb-ai-languages-api/) — Supported source and target languages.
+- [Camb.AI Text-to-Speech API](https://apis.io/apis/camb-ai/camb-ai-text-to-speech-api/) — Convert text to speech with the MARS voice models.
+- [Camb.AI Transcription API](https://apis.io/apis/camb-ai/camb-ai-transcription-api/) — Speech-to-text transcription with timestamps.
+- [Camb.AI Translation API](https://apis.io/apis/camb-ai/camb-ai-translation-api/) — Neural text translation via the BOLI model.
+- [Camb.AI Voices API](https://apis.io/apis/camb-ai/camb-ai-voices-api/) — Discover, clone, design, and manage voices.
 
-## Tags
+### Published properties
 
-- AI
-- Text to Speech
-- Dubbing
-- Translation
-- Transcription
-- Voice Cloning
-- Speech
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Timestamps
+#### AsyncAPI (1)
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+Event-driven and webhook contracts.
 
-## APIs
+- [Camb.AI Realtime WebSocket API](https://apis.io/asyncapis/camb-ai/camb-ai-asyncapi/)
 
-### Camb.AI Text-to-Speech API
+#### Event channels (3)
 
-Convert text into natural speech with the MARS voice models. Includes a streaming endpoint (`POST /tts-stream`) that returns a binary audio stream, a deprecated task-based create endpoint (`POST /tts`), status polling (`GET /tts/{task_id}`), and audio retrieval (`GET /tts-result/{run_id}`), plus a public WebSocket for real-time low-latency synthesis with optional word-level timestamps.
+Individual events and webhooks the provider emits.
 
-- **Human URL:** [https://docs.camb.ai/api-reference/endpoint/create-tts-stream](https://docs.camb.ai/api-reference/endpoint/create-tts-stream)
-- **Base URL:** `https://client.camb.ai/apis`
+- [listen](https://apis.io/channels/camb-ai/listen/)
+- [live-tts](https://apis.io/channels/camb-ai/live-tts/)
+- [realtime](https://apis.io/channels/camb-ai/realtime/)
 
-### Camb.AI Dubbing API
+#### Agentic access (1)
 
-End-to-end video and audio dubbing that preserves emotional delivery. Submit a media URL with a source language and one or more target languages (`POST /dub`), poll the task (`GET /dub/{task_id}`), then retrieve the dubbed outputs and translated transcripts per target language.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing](https://docs.camb.ai/api-reference/endpoint/end-to-end-dubbing)
-- **Base URL:** `https://client.camb.ai/apis`
+- [Camb Ai Agentic Access](https://apis.io/agentic-access/camb-ai/camb-ai-agentic-access/)
 
-### Camb.AI Translation API
+#### Collections (7)
 
-Neural text translation powered by the BOLI model across 140+ language pairs, with controls for formality, gender, and specialized vocabulary. Start a translation task with an array of texts and source/target locale tags (`POST /translate`), then poll the task (`GET /translate/{task_id}`) for the result.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.camb.ai/api-reference/endpoint/create-translation](https://docs.camb.ai/api-reference/endpoint/create-translation)
-- **Base URL:** `https://client.camb.ai/apis`
+- [Camb.AI API](https://apis.io/collections/camb-ai/open-camb-ai/)
+- [Camb.AI Dubbing API](https://apis.io/collections/camb-ai/open-camb-ai-dubbing-api/)
+- [Camb.AI Dubbing Languages API](https://apis.io/collections/camb-ai/open-camb-ai-languages-api/)
+- [Camb.AI Dubbing Text-to-Speech API](https://apis.io/collections/camb-ai/open-camb-ai-text-to-speech-api/)
+- [Camb.AI Dubbing Transcription API](https://apis.io/collections/camb-ai/open-camb-ai-transcription-api/)
+- [Camb.AI Dubbing Translation API](https://apis.io/collections/camb-ai/open-camb-ai-translation-api/)
+- [Camb.AI Dubbing Voices API](https://apis.io/collections/camb-ai/open-camb-ai-voices-api/)
 
-### Camb.AI Voices API
+#### Governance rules (1)
 
-Discover and manage the voices used across TTS and dubbing. List public, shared, and custom voices (`GET /list-voices`), clone a custom voice from reference audio (`POST /create-custom-voice`), design a brand-new voice from a text description (`POST /text-to-voice`), and delete a custom voice (`DELETE /delete-voice/{voice_id}`).
+Spectral rulesets for the provider's contracts.
 
-- **Human URL:** [https://docs.camb.ai/api-reference/endpoint/list-voices](https://docs.camb.ai/api-reference/endpoint/list-voices)
-- **Base URL:** `https://client.camb.ai/apis`
+- [Camb.AI — asyncapi rules](https://apis.io/rules/camb-ai/camb-ai-asyncapi-spectral-rules/)
 
-### Camb.AI Transcription API
+#### Security (2)
 
-Speech-to-text transcription with speaker identification and word-level timestamps. Submit a media file or media URL with a language tag (`POST /transcribe`) and poll the task (`GET /transcribe/{task_id}`) for the transcript, or stream audio over a public WebSocket to receive cumulative interim transcripts and typed events in real time.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.camb.ai/api-reference/endpoint/create-transcription](https://docs.camb.ai/api-reference/endpoint/create-transcription)
-- **Base URL:** `https://client.camb.ai/apis`
+- [Camb Ai Authentication](https://apis.io/security/camb-ai/camb-ai-authentication/)
+- [Camb Ai Domain Security](https://apis.io/security/camb-ai/camb-ai-domain-security/)
 
-## Common Properties
+#### Plans and pricing (1)
 
-- [LinkedIn](https://www.linkedin.com/company/camb-ai)
+Published plans, tiers and prices.
+
+- [Camb Ai Plans Pricing](https://apis.io/plans/camb-ai/camb-ai-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Camb Ai Rate Limits](https://apis.io/rate-limits/camb-ai/camb-ai-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Camb Ai Finops](https://apis.io/finops/camb-ai/camb-ai-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.camb.ai)
 - [Documentation](https://docs.camb.ai)
-- [Source Code](https://github.com/Camb-ai)
-- [Plans](plans/camb-ai-plans-pricing.yml)
-- [Rate Limits](rate-limits/camb-ai-rate-limits.yml)
-- [Fin Ops](finops/camb-ai-finops.yml)
+- [Pricing](https://www.camb.ai/pricing)
 - [Blog](https://www.camb.ai/blog)
 
-## Artifacts
+## API Evangelist rating
 
-- [OpenAPI](openapi/camb-ai-openapi.yml) — REST API
-- [AsyncAPI](asyncapi/camb-ai-asyncapi.yml) — realtime WebSocket channels
-- [Postman Collection](collections/camb-ai.postman_collection.json)
-- [Open Collection](collections/camb-ai.opencollection.json)
+**Kin Score 36.2** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 58.2 |
+| Contract governance | 11.4 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 42.1 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 20.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.5** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/camb-ai/](https://apis.io/providers/camb-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Camb.AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/camb-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
